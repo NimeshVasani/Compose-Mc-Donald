@@ -1,5 +1,6 @@
 package  com.example.composemcdonald.ui.cart
 
+import android.widget.Space
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,27 +9,25 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.composemcdonald.R
 import com.example.composemcdonald.model.Menu
 import com.example.composemcdonald.model.MenuItem
 import com.example.composemcdonald.ui.components.NetworkImage
-import com.example.composemcdonald.ui.theme.McComposeTheme
 import com.example.composemcdonald.ui.menu.MenuViewModel
+import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +48,9 @@ fun CartScreen(
     ) { padding ->
         LazyColumn(
             state = lazyListState,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 50.dp, start = 10.dp, end = 10.dp)
 
         ) {
             item { Spacer(modifier = Modifier.height(16.dp)) }
@@ -67,8 +68,9 @@ fun CartScreen(
             item { Spacer(modifier = Modifier.height(16.dp)) }
 
             itemsIndexed(menuItems) { index, cartItem ->
-                MenuItemCard(
+                CartItemCard(
                     menuItem = cartItem,
+                    viewModel = viewModel
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -79,10 +81,15 @@ fun CartScreen(
 }
 
 @Composable
-fun MenuItemCard(
+fun CartItemCard(
     menuItem: MenuItem,
+    viewModel: MenuViewModel
 ) {
+    val randomColor = remember {
+        getRandomLightColor()
+    }
     Card(
+        colors = CardDefaults.cardColors(containerColor = randomColor),
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
@@ -91,27 +98,33 @@ fun MenuItemCard(
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Bottom
         ) {
             // Image
-            Column(verticalArrangement = Arrangement.Bottom) {
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 NetworkImage(
                     imageUrl = menuItem.image,
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.FillBounds,
                     modifier = Modifier
-                        .fillMaxWidth(0.2f)
-                        .fillMaxHeight(0.2f)
-                        .aspectRatio(1f),
+                        .fillMaxWidth(0.3f)
+                        .fillMaxHeight(0.4f)
+                        .aspectRatio(2f),
 
                     previewPlaceholder = R.drawable.menu_item_double_quarter_pounder_with_cheese_meal
                 )
                 // Add and Remove buttons
-                Row(verticalAlignment = Alignment.Top) {
-                    IconButton(onClick = {  }) {
+                Row(verticalAlignment = Alignment.Bottom) {
+                    IconButton(onClick = {
+                        viewModel.incrementMenuItemQuantity(menuItem)
+                    }) {
                         Icon(Icons.Default.Add, contentDescription = "Add")
                     }
 
                     IconButton(onClick = {
+                        viewModel.decrementMenuItemQuantity(menuItem)
 
                     }) {
                         Icon(
@@ -128,7 +141,7 @@ fun MenuItemCard(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = menuItem.name,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -144,16 +157,24 @@ fun MenuItemCard(
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Price: $${menuItem.price}",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Quantity: ${menuItem.quantity}",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black
                 )
             }
         }
     }
+}
+
+fun getRandomLightColor(): Color {
+    val random = Random.Default
+    val red = random.nextFloat() * 0.2f + 0.8f
+    val green = random.nextFloat() * 0.2f + 0.8f
+    val blue = random.nextFloat() * 0.2f + 0.8f
+    return Color(red, green, blue)
 }
