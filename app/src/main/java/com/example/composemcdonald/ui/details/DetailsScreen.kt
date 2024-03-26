@@ -123,7 +123,7 @@ private fun DetailsScreenPreview() {
 @Preview("DetailsScreen • Dark")
 @Composable
 private fun DetailsScreenDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         DetailsScreen(
             menuItemId = 4004,
             onBackClick = {}

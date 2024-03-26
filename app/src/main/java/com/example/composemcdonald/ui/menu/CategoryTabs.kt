@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,6 +39,7 @@ fun CategoryTabs(
         selectedTabIndex = categories.indexOf(selectedCategory),
        // backgroundColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onSurface,
+        containerColor = Color.White,
         edgePadding = 8.dp,
         indicator = {},
         divider = {}
@@ -70,23 +72,23 @@ private fun CategoryTab(
 
     val backgroundColor by transition.animateColor(label = "") { state ->
         when (state) {
-            CategoryTabState.Selected -> MaterialTheme.colorScheme.primary
+            CategoryTabState.Selected ->  Color(255, 205, 210)
             CategoryTabState.NotSelected -> MaterialTheme.colorScheme.background
         }
     }
     val contentColor by transition.animateColor(label = "") { state ->
         when (state) {
-            CategoryTabState.Selected -> LocalContentColor.current
-            CategoryTabState.NotSelected -> MaterialTheme.colorScheme.primary
+            CategoryTabState.Selected -> Color.Black
+            CategoryTabState.NotSelected -> Color.Gray
         }
     }
 
     Surface(
         modifier = modifier,
-        shape = MaterialTheme.shapes.small,
+        shape = MaterialTheme.shapes.extraLarge,
         color = backgroundColor,
         contentColor = contentColor,
-        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
     ) {
         Row(
             modifier = Modifier
@@ -105,7 +107,7 @@ private fun CategoryTab(
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = category.name,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -126,7 +128,7 @@ private fun CategoryTabsPreview() {
 @Preview("CategoryTabs • Dark")
 @Composable
 private fun CategoryTabsDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         CategoryTabs(
             categories = CategoriesRepository.getCategoriesData(),
             selectedCategory = CategoriesRepository.getCategoriesData().first(),
@@ -170,7 +172,7 @@ private fun CategoryTabNotSelectedPreview() {
 @Preview("CategoryTab • Selected • Dark")
 @Composable
 private fun CategoryTabSelectedDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         CategoryTab(
             category = Category(
                 id = 0,
@@ -186,7 +188,7 @@ private fun CategoryTabSelectedDarkPreview() {
 @Preview("CategoryTab • NotSelected • Dark")
 @Composable
 private fun CategoryTabNotSelectedDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         CategoryTab(
             category = Category(
                 id = 0,

@@ -79,7 +79,7 @@ private fun MenuCartButtonPreview() {
 @Preview("MenuCartButton • Dark")
 @Composable
 private fun MenuCartButtonDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         CartButton(
             quantity = 3,
             price = 0.0,

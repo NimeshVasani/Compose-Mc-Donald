@@ -115,7 +115,7 @@ private fun QuantityToggleNonZeroPreview() {
 @Preview("QuantityToggle • Zero • Dark")
 @Composable
 private fun QuantityToggleZeroDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         QuantityToggle(
             quantity = 0,
             onIncrementQuantity = {},
@@ -127,7 +127,7 @@ private fun QuantityToggleZeroDarkPreview() {
 @Preview("QuantityToggle • NonZero • Dark")
 @Composable
 private fun QuantityToggleNonZeroDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme {
         QuantityToggle(
             quantity = 1,
             onIncrementQuantity = {},

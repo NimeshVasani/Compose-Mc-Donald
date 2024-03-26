@@ -120,7 +120,7 @@ private fun SpotlightCardPreview() {
 @Preview("Spotlight Card • Dark")
 @Composable
 private fun SpotlightCardDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         SpotlightCard(
             title = "Happy Meals",
             imageUrl = "",

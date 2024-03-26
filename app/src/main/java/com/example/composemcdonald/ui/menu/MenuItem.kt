@@ -118,7 +118,7 @@ private fun MenuCardPreview() {
 @Preview("Menu Item Card • Dark")
 @Composable
 private fun MenuItemDarkPreview() {
-    McComposeTheme(lightTheme = false) {
+    McComposeTheme() {
         MenuItem(
             menuItem = MenuItem(
                 id = 0,

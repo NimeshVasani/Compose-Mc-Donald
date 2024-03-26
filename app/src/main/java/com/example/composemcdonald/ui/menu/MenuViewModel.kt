@@ -31,7 +31,15 @@ class MenuViewModel : ViewModel() {
             )
         }
     }
-
+    fun removeAllMenuItemQuantity(menuItem: MenuItem) {
+        _data.value = _data.value!!.let { menu ->
+            menu.copy(
+                menuItems = menu.menuItems.toMutableList().also { menuItems ->
+                    menuItems[menuItems.indexOf(menuItem)] = menuItem.copy(quantity = 0)
+                }
+            )
+        }
+    }
     // TODO : Is it possible to have recomposition without copying and making a new instance of list item ?
 
 }
