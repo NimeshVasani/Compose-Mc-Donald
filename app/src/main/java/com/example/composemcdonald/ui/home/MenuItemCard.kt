@@ -116,7 +116,7 @@ private fun MenuItemCardPreview() {
                 description = "",
                 image = "",
                 price = 0.00,
-                categoryId = 0
+                categoryId = 0,quantity = 0
             ),
             onClick = {}
         )
@@ -134,7 +134,7 @@ private fun MenuItemCardDarkPreview() {
                 description = "",
                 image = "",
                 price = 0.00,
-                categoryId = 0
+                categoryId = 0,quantity = 0
             ),
             onClick = {}
         )

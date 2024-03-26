@@ -1,20 +1,31 @@
 package com.example.composemcdonald
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
+import androidx.navigation.NavType.SerializableType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.composemcdonald.data.SharedViewModel
+import com.example.composemcdonald.model.MenuItem
+import com.example.composemcdonald.ui.cart.CartScreen
 import com.example.composemcdonald.ui.details.DetailsScreen
 import com.example.composemcdonald.ui.home.HomeScreen
 import com.example.composemcdonald.ui.menu.MenuScreen
+import com.example.composemcdonald.ui.menu.MenuViewModel
 import com.example.composemcdonald.ui.theme.McComposeTheme
+import java.io.Serializable
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +33,7 @@ class MainActivity : ComponentActivity() {
             McComposeTheme(lightTheme = true) {
 
                 val navController = rememberNavController()
+                val viewModel: MenuViewModel = viewModel()
 
                 NavHost(navController, startDestination = "home") {
 
@@ -29,7 +41,8 @@ class MainActivity : ComponentActivity() {
                         HomeScreen(
                             onCategoryClick = { navController.navigate("menu") },
                             onMenuItemClick = { navController.navigate("menu") },
-                        )
+
+                            )
                     }
 
                     composable("menu") {
@@ -38,6 +51,10 @@ class MainActivity : ComponentActivity() {
                             onMenuItemClick = { menuItemId ->
                                 navController.navigate("details/$menuItemId")
                             },
+                            viewModel = viewModel,
+                            onCartButtonClick = {
+                                navController.navigate("cart")
+                            }
                         )
                     }
 
@@ -50,6 +67,16 @@ class MainActivity : ComponentActivity() {
                             onBackClick = { navController.navigateUp() }
                         )
                     }
+                    composable(
+                        "cart",
+                    ) {
+
+                        CartScreen(
+                            viewModel = viewModel,
+                            onMenuItemClick = { navController.navigate("menu") }
+                        )
+                    }
+
 
                 }
 
@@ -57,3 +84,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+

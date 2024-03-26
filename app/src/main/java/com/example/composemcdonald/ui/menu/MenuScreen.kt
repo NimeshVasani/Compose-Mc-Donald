@@ -22,10 +22,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -33,28 +32,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.composemcdonald.data.SharedViewModel
 import com.example.composemcdonald.ui.components.Icon
 import com.example.composemcdonald.ui.theme.McComposeTheme
 import com.example.composemcdonald.model.Category
 import com.example.composemcdonald.model.Menu
+import com.example.composemcdonald.model.MenuItem
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalAnimationApi
 @Composable
 fun MenuScreen(
+    viewModel: MenuViewModel,
     onBackClick: () -> Unit,
+    onCartButtonClick: (Long) -> Unit, // Change the type here
     onMenuItemClick: (Long) -> Unit
 ) {
-
-    val viewModel: MenuViewModel = viewModel()
-
     val data by viewModel.data.observeAsState(Menu(emptyList(), emptyList()))
-
     val lazyListState = rememberLazyListState()
-
     val coroutineScope = rememberCoroutineScope()
+    val selectedMenuItems = remember { mutableListOf<Long>() }
 
     Scaffold(
         topBar = {
@@ -69,23 +67,17 @@ fun MenuScreen(
         }
     ) { padding ->
         Box {
-
             Column {
-
                 CategoryTabs(
                     categories = data.categories,
-                    selectedCategory =  lazyListState.firstVisibleItemIndex.getCategory(
-                        menu = data
-                    ),
+                    selectedCategory = lazyListState.firstVisibleItemIndex.getCategory(menu = data),
                     onCategorySelected = { category ->
                         coroutineScope.launch { lazyListState.scrollToItem(category.getIndex(data)) }
                     }
                 )
                 Divider()
 
-                LazyColumn(
-                    state = lazyListState
-                ) {
+                LazyColumn(state = lazyListState) {
                     for (category in data.categories) {
                         item {
                             Text(
@@ -98,37 +90,31 @@ fun MenuScreen(
                         itemsIndexed(menuItems) { index, menuItem ->
                             MenuItem(
                                 menuItem = menuItem,
-                                onClick = { onMenuItemClick(menuItem.id) },
+                                onClick = {
+                                    onMenuItemClick(menuItem.id)
+                                },
                                 onIncrementMenuItemQuantity = {
-                                    viewModel.incrementMenuItemQuantity(
-                                        menuItem
-                                    )
+                                    viewModel.incrementMenuItemQuantity(menuItem)
                                 },
                                 onDecrementMenuItemQuantity = {
-                                    viewModel.decrementMenuItemQuantity(
-                                        menuItem
-                                    )
+                                    viewModel.decrementMenuItemQuantity(menuItem)
                                 },
                             )
-                            if (index != menuItems.lastIndex)
+                            if (index != menuItems.lastIndex) {
                                 Divider(modifier = Modifier.padding(horizontal = 16.dp))
+                            }
                         }
                     }
                     item {
                         Spacer(modifier = Modifier.height(80.dp))
                     }
                 }
-
             }
 
             AnimatedVisibility(
                 visible = data.menuItems.any { it.quantity > 0 },
-                enter = slideInVertically(
-                    initialOffsetY = { it * 2 }
-                ),
-                exit = slideOutVertically(
-                    targetOffsetY = { it * 2 }
-                ),
+                enter = slideInVertically(initialOffsetY = { it * 2 }),
+                exit = slideOutVertically(targetOffsetY = { it * 2 }),
                 modifier = Modifier
                     .padding(16.dp)
                     .align(Alignment.BottomCenter)
@@ -136,18 +122,17 @@ fun MenuScreen(
                 CartButton(
                     quantity = data.menuItems.sumOf { it.quantity },
                     price = data.menuItems.filter { it.quantity > 0 }.sumOf { it.price },
-                    onClick = {}
+                    onClick = { onCartButtonClick(1001) } // Send the selected menu item IDs here
                 )
             }
-
         }
     }
 }
 
+
 private fun Int.getCategory(menu: Menu): Category {
-    return menu.categories.last { it.getIndex(menu) <= this }}
-
-
+    return menu.categories.last { it.getIndex(menu) <= this }
+}
 
 
 private fun Category.getIndex(menu: Menu): Int {
@@ -168,7 +153,9 @@ private fun MenuScreenPreview() {
     McComposeTheme {
         MenuScreen(
             onBackClick = {},
-            onMenuItemClick = {}
+            onMenuItemClick = {},
+            onCartButtonClick = {},
+            viewModel = MenuViewModel()
         )
     }
 }
@@ -180,7 +167,10 @@ private fun MenuScreenDarkPreview() {
     McComposeTheme(lightTheme = false) {
         MenuScreen(
             onBackClick = {},
-            onMenuItemClick = {}
+            onMenuItemClick = {},
+            onCartButtonClick = {},
+            viewModel = MenuViewModel()
+
         )
     }
 }

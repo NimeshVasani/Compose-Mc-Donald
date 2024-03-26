@@ -106,7 +106,7 @@ private fun MenuCardPreview() {
                 description = "Get double the fresh beef flavor with a Double Quarter Pounder with Cheese made with fresh beef that’s cooked when you order. Served with our World Famous Fries and your choice of an icy soft drink.",
                 image = "",
                 price = 0.00,
-                categoryId = 0
+                categoryId = 0,quantity = 0
             ),
             onClick = {},
             onIncrementMenuItemQuantity = {},
@@ -126,7 +126,7 @@ private fun MenuItemDarkPreview() {
                 description = "Get double the fresh beef flavor with a Double Quarter Pounder with Cheese made with fresh beef that’s cooked when you order. Served with our World Famous Fries and your choice of an icy soft drink.",
                 image = "",
                 price = 0.00,
-                categoryId = 0
+                categoryId = 0,quantity = 0
             ),
             onClick = {},
             onIncrementMenuItemQuantity = {},
