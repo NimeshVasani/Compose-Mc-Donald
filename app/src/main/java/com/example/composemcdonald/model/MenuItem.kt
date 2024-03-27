@@ -11,5 +11,6 @@ data class MenuItem(
     val image: String,
     val price: Double,
     val categoryId: Long,
-    var quantity: Int
+    var quantity: Int,
+    var contains : String = "Slices of raw onion, lettuce, bacon, mayonnaise, and other ingredients add flavor"
 ) : Parcelable

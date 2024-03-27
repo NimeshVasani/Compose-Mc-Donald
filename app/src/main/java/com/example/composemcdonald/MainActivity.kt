@@ -2,10 +2,13 @@ package com.example.composemcdonald
 
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
+import android.window.OnBackInvokedCallback
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Box
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,6 +18,7 @@ import androidx.navigation.navArgument
 import com.example.composemcdonald.ui.cart.CartScreen
 import com.example.composemcdonald.ui.details.DetailsScreen
 import com.example.composemcdonald.ui.home.HomeScreen
+import com.example.composemcdonald.ui.login.LoginScreen
 import com.example.composemcdonald.ui.menu.MenuScreen
 import com.example.composemcdonald.ui.menu.MenuViewModel
 import com.example.composemcdonald.ui.theme.McComposeTheme
@@ -24,13 +28,20 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         setContent {
+
+
             McComposeTheme() {
 
                 val navController = rememberNavController()
                 val viewModel: MenuViewModel = viewModel()
 
-                NavHost(navController, startDestination = "home") {
+                NavHost(navController, startDestination = "login") {
 
                     composable("home") {
                         HomeScreen(
@@ -40,17 +51,25 @@ class MainActivity : ComponentActivity() {
                             )
                     }
 
+                    composable("login") {
+                        LoginScreen(onButtonClick = {
+                            navController.navigate("home")
+                        })
+                    }
+
                     composable("menu") {
-                        MenuScreen(
-                            onBackClick = { navController.navigateUp() },
-                            onMenuItemClick = { menuItemId ->
-                                navController.navigate("details/$menuItemId")
-                            },
-                            viewModel = viewModel,
-                            onCartButtonClick = {
-                                navController.navigate("cart")
-                            }
-                        )
+                        Box {
+                            MenuScreen(
+                                onBackClick = { navController.navigateUp() },
+                                onMenuItemClick = { menuItemId ->
+                                    navController.navigate("details/$menuItemId")
+                                },
+                                viewModel = viewModel,
+                                onCartButtonClick = {
+                                    navController.navigate("cart")
+                                }
+                            )
+                        }
                     }
 
                     composable(
@@ -58,6 +77,7 @@ class MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("menuItemId") { type = NavType.LongType })
                     ) { backStackEntry ->
                         DetailsScreen(
+                            viewModel = viewModel,
                             menuItemId = backStackEntry.arguments!!.getLong("menuItemId"),
                             onBackClick = { navController.navigateUp() }
                         )
@@ -68,7 +88,11 @@ class MainActivity : ComponentActivity() {
 
                         CartScreen(
                             viewModel = viewModel,
-                            onMenuItemClick = { navController.navigate("menu") }
+                            onMenuItemClick = { menuItemId -> navController.navigate("details/$menuItemId") },
+                            onBackClick = {
+
+                                navController.navigate("menu")
+                            }
                         )
                     }
 

@@ -7,15 +7,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.composemcdonald.ui.components.Icon
 import com.example.composemcdonald.ui.theme.McComposeTheme
 import androidx.compose.material.icons.Icons as Icons1
@@ -25,13 +27,17 @@ fun CartButton(
     quantity: Int,
     price: Double,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    containerColor: Color = MaterialTheme.colorScheme.secondary,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    contentName: String = "VIEW CART",
+    contentIcon: ImageVector = Icons1.Default.ShoppingCart
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.small,
-        color = MaterialTheme.colorScheme.secondary,
-        contentColor = MaterialTheme.colorScheme.onSurface,
+        color = containerColor,
+        contentColor = contentColor,
         shadowElevation = 16.dp
     ) {
         Row(
@@ -56,10 +62,10 @@ fun CartButton(
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "VIEW CART",
+                text = contentName,
                 style = MaterialTheme.typography.bodySmall
             )
-            Icon(Icons1.Rounded.CheckCircle)
+            Icon(contentIcon)
         }
     }
 }

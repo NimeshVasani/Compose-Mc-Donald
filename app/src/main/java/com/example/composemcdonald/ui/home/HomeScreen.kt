@@ -39,7 +39,7 @@ fun HomeScreen(
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            item { Spacer(modifier = Modifier.height(16.dp)) }
+            item { Spacer(modifier = Modifier.height(30.dp)) }
 
             item {
                 Text(
