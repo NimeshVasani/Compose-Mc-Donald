@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                             onMenuItemClick = { menuItemId -> navController.navigate("details/$menuItemId") },
                             onBackClick = {
 
-                                navController.navigate("menu")
+                                navController.navigateUp()
                             }
                         )
                     }

@@ -47,22 +47,7 @@ object HomeRepository {
                     price = randomPrice[4],
                     categoryId = 4, quantity = 0
                 ),
-//                MenuItem(
-//                    id = 1001,
-//                    name = "Big Mac",
-//                    description = "Mouthwatering perfection starts with two 100% pure beef patties and Big Mac sauce sandwiched between a sesame seed bun. It’s topped off with pickles, crisp shredded lettuce, finely chopped onion and American cheese.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_big_mac.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 1
-//                ),
-//                MenuItem(
-//                    id = 1003,
-//                    name = "Double Quarter Pounder with Cheese",
-//                    description = "Each Double Quarter Pounder with Cheese features two quarter pound 100% fresh beef burger patties that are hot, deliciously juicy and cooked when you order. McDonald’s beef patties are seasoned with just a pinch of salt and pepper, sizzled on a flat iron grill, then topped with slivered onions, tangy pickles and two slices of melty cheese on a sesame seed bun.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_double_quarter_pounder_with_cheese.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 1
-//                ),
+
                 MenuItem(
                     id = 5001,
                     name = "Hamburger Happy Meal",
@@ -79,15 +64,8 @@ object HomeRepository {
                     price = randomPrice[10],
                     categoryId = 6, quantity = 0
                 ),
-//                MenuItem(
-//                    id = 6006,
-//                    name = "McFlurry with OREO Cookies",
-//                    description = "The McDonald’s McFlurry with OREO Cookies is an popular combination of OREO pieces and vanilla soft serve!",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_mcflurry_with_oreo_cookies.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 6
-//                ),
-            ),
+
+                ),
             recommendedMenuItems = listOf(
                 MenuItem(
                     id = 4001,
@@ -113,22 +91,7 @@ object HomeRepository {
                     price = randomPrice[10],
                     categoryId = 4, quantity = 0
                 ),
-//                MenuItem(
-//                    id = 1004,
-//                    name = "Quarter Pounder with Cheese Deluxe",
-//                    description = "The Quarter Pounder with Cheese Deluxe is a fresh take on a Quarter Pounder classic burger. Crisp leaf lettuce and three Roma tomato slices top a ¼ lb. of 100% McDonald’s fresh beef that’s hot, deliciously juicy and cooked when you order. Seasoned with just a pinch of salt and pepper and sizzled on our flat iron grill. Layered with two slices of melty American cheese, creamy mayo, slivered onions and tangy pickles on a soft, fluffy sesame seed hamburger bun.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_quarter_pounder_with_cheese_deluxe.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 1
-//                ),
-//                MenuItem(
-//                    id = 1006,
-//                    name = "Quarter Pounder with Cheese Bacon",
-//                    description = "Each Quarter Pounder with Cheese Bacon burger features thick-cut applewood smoked bacon atop a ¼ lb. of 100% fresh McDonald’s beef that’s cooked when you order. It’s a hot, deliciously juicy bacon cheeseburger, seasoned with just a pinch of salt and pepper and sizzled on our flat iron grill. Layered with two slices of melty American cheese, slivered onions and tangy pickles on a soft, fluffy sesame seed hamburger bun.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_quarter_pounder_with_cheese_bacon.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 1
-//                ),
+
                 MenuItem(
                     id = 2002,
                     name = "Medium French Fries",
@@ -137,14 +100,6 @@ object HomeRepository {
                     price = randomPrice[10],
                     categoryId = 2, quantity = 0
                 ),
-//                MenuItem(
-//                    id = 3005,
-//                    name = "Chocolate Shake",
-//                    description = "Chocolate Shake featuring our deliciously creamy vanilla soft serve and chocolate syrup, topped with whipped topping.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_chocolate_shake.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 3
-//                ),
                 MenuItem(
                     id = 3008,
                     name = "McCafé Hot Chocolate",
@@ -153,30 +108,7 @@ object HomeRepository {
                     price = randomPrice[11],
                     categoryId = 3, quantity = 0
                 ),
-//                MenuItem(
-//                    id = 3012,
-//                    name = "Minute Maid Blue Raspberry Slushie",
-//                    description = "Turn up summer with this Minute Maid Blue Raspberry Slushie, full of sweet, fruity blue raspberry flavor, available only at McDonald’s.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_minute_maid_blue_raspberry_slushie.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 3
-//                ),
-//                MenuItem(
-//                    id = 6003,
-//                    name = "McFlurry with M&M'S Candies",
-//                    description = "The McDonald’s M&M McFlurry is a sweet, creamy M&M’S dessert of vanilla soft serve with M&M’S chocolate candies swirled in.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_mcflurry_with_m_and_m_candies.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 6
-//                ),
-//                MenuItem(
-//                    id = 6007,
-//                    name = "Baked Apple Pie",
-//                    description = "McDonald's Baked Apple Pie is loaded with 100% American-grown apples, with a lattice crust baked to perfection and topped with sprinkled sugar.",
-//                    image = "https://raw.githubusercontent.com/hitanshu-dhawan/McCompose/main/app/src/main/res/drawable-nodpi/" + "menu_item_baked_apple_pie.png",
-//                    price = getRandomPrice(),
-//                    categoryId = 6
-//                ),
+//
             )
         )
     }

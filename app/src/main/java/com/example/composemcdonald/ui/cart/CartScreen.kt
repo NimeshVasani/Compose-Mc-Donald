@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -113,6 +114,12 @@ fun CartScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(top = 20.dp)
                 ) {
+                    IconButton(onClick = onBackClick) {
+                        com.example.composemcdonald.ui.components.Icon(
+                            Icons.Rounded.KeyboardArrowLeft,
+                            modifier = Modifier.height(50.dp).width(50.dp)
+                        )
+                    }
                     Text(
                         text = "Your Cart",
                         style = MaterialTheme.typography.headlineMedium,
